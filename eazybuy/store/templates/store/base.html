@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Eazybuy - E-Commerce Store{% endblock %}</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#FF6B00', 
+                            dark: '#1A1A1A',
+                            gray: '#F3F4F6',
+                            light: '#FFFFFF',
+                            text: '#333333',
+                            muted: '#9CA3AF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #f3f4f6;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="text-brand-text font-sans">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/60 backdrop-blur-md px-6 py-4 border-b border-white/20 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center text-white">
+                    <i class="ph-bold ph-asterisk text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold">Eazybuy<span class="text-brand-orange">.</span></h1>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-6">
+                <a href="{% url 'store:product_list' %}" class="text-gray-700 hover:text-brand-orange transition font-medium">Shop</a>
+                <a href="#" class="text-gray-700 hover:text-brand-orange transition font-medium">About</a>
+                <a href="#" class="text-gray-700 hover:text-brand-orange transition font-medium">Contact</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center hover:bg-white transition">
+                    <i class="ph-bold ph-magnifying-glass text-xl"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center hover:bg-white transition relative">
+                    <i class="ph-bold ph-shopping-cart text-xl"></i>
+                    <span class="absolute top-0 right-0 w-3 h-3 bg-brand-orange rounded-full border-2 border-white"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white mt-20 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p>&copy; 2024 Eazybuy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

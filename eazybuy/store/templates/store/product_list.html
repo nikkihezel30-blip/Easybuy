@@ -1,0 +1,53 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Products - Eazybuy{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Page Header -->
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Our Products</h1>
+        <p class="text-gray-600">Discover our exclusive collection of premium items</p>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {% for product in products %}
+        <div class="product-card rounded-2xl p-4 relative group cursor-pointer">
+            <!-- Wishlist Button -->
+            <button class="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/60 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-white transition z-10 backdrop-blur-sm">
+                <i class="ph-bold ph-heart"></i>
+            </button>
+
+            <!-- Product Image -->
+            <div class="h-40 flex items-center justify-center mb-4 bg-white/50 rounded-xl">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain transform group-hover:scale-105 transition duration-300">
+                {% else %}
+                    <div class="flex items-center justify-center text-gray-400">
+                        <i class="ph-bold ph-image text-4xl"></i>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Product Info -->
+            <h3 class="font-bold text-gray-800 truncate">{{ product.name }}</h3>
+            <p class="text-xs text-gray-500 mb-3">Electronics</p>
+
+            <!-- Price & Add to Cart -->
+            <div class="flex items-center justify-between">
+                <span class="font-bold text-lg text-brand-orange">${{ product.price }}</span>
+                <a href="{% url 'store:product_detail' product.id %}" class="w-8 h-8 bg-brand-dark rounded-lg flex items-center justify-center text-white hover:bg-brand-orange transition">
+                    <i class="ph-bold ph-plus"></i>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <i class="ph-bold ph-inbox text-6xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500 text-lg">No products available yet</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{{ product.name }} - Eazybuy{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Product Image -->
+        <div class="flex items-center justify-center bg-white/70 rounded-3xl p-8 backdrop-blur-lg">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-96 object-contain">
+            {% else %}
+                <div class="flex items-center justify-center text-gray-400 h-96">
+                    <i class="ph-bold ph-image text-6xl"></i>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Details -->
+        <div class="flex flex-col justify-center">
+            <span class="text-brand-orange font-bold text-sm uppercase bg-orange-50 px-3 py-1 rounded-md w-fit mb-4">In Stock</span>
+            
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ product.name }}</h1>
+            
+            <div class="flex items-center gap-2 mb-6">
+                <div class="flex gap-1">
+                    <i class="ph-fill ph-star text-yellow-400"></i>
+                    <i class="ph-fill ph-star text-yellow-400"></i>
+                    <i class="ph-fill ph-star text-yellow-400"></i>
+                    <i class="ph-fill ph-star text-yellow-400"></i>
+                    <i class="ph-half ph-star text-yellow-400"></i>
+                </div>
+                <span class="text-sm font-bold text-gray-600">(0 reviews)</span>
+            </div>
+
+            <p class="text-3xl font-bold text-brand-orange mb-8">${{ product.price }}</p>
+
+            <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                Premium quality product designed for excellence. Built with the finest materials to ensure durability and satisfaction.
+            </p>
+
+            <!-- Add to Cart Button -->
+            <div class="flex gap-4">
+                <div class="flex items-center bg-gray-100 rounded-xl px-4 py-3 border border-gray-200">
+                    <button class="text-gray-600 hover:text-brand-orange"><i class="ph-bold ph-minus"></i></button>
+                    <span class="mx-4 font-bold text-gray-800 text-lg">1</span>
+                    <button class="text-gray-600 hover:text-brand-orange"><i class="ph-bold ph-plus"></i></button>
+                </div>
+                <form method="post" action="{% url 'store:add_to_cart' product.id %}" class="flex-1">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-brand-dark text-white rounded-xl font-bold py-3 hover:bg-gray-800 transition shadow-lg flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-shopping-bag"></i> Add to Cart
+                    </button>
+                </form>
+            </div>
+
+            <!-- Product Details -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <h3 class="font-bold text-lg mb-4">Product Details</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li><strong>SKU:</strong> {{ product.id }}</li>
+                    <li><strong>Category:</strong> Electronics</li>
+                    <li><strong>Availability:</strong> In Stock</li>
+                    <li><strong>Shipping:</strong> Free worldwide shipping</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
